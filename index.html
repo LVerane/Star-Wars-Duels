@@ -21,13 +21,17 @@
     <img id="wan" class="character" data-character="obiWan" src="assets/images/ObiWan.jpeg" alt="Obi Wan">
     <img id="yoda" class="character" data-character="masterYoda" src="assets/images/MasterYoda.jpeg" alt="Master Yoda">
 
-    <div id="hero">
+    <div id="hero"> <!--id not yet used  -->
+
+        <p id="heroHealth"></p>
 
     </div>
 
     <button id="attack">Attack!</button>
 
-    <div id="enemies">
+    <div id="enemy"> <!--id not yet used  -->
+
+        <p id="enemyHealth"></p>
 
     </div>
 
@@ -70,6 +74,8 @@
     var selectedHero;
     var selectedEnemy;
 
+    var heroAttack = 0;
+
     $(document).ready(function() {
 
         $("#instructions").html("Click on an image to choose your hero!")
@@ -103,6 +109,8 @@
                     // console.log(characters[i])
                     if(characters[i].name === $(this).attr("data-character")){
                         characters[i].isEnemy = true;
+                        selectedEnemy = characters[i];
+                        console.log(selectedEnemy);
                     }
                     console.log(characters[i].name + characters[i].isEnemy)
                 }
@@ -112,9 +120,15 @@
 
         });
 
-        $("#button").on("click", function(){
+        $("#attack").on("click", function(){
             if(heroChosen === true && enemyChosen === true){
-                console.log(selectedHero.attackPoints)
+                
+                heroAttack = heroAttack + selectedHero.attackPoints
+                selectedEnemy.health = selectedEnemy.health - heroAttack
+                $("#enemyHealth").html(selectedEnemy.health)
+
+                selectedHero.health = selectedHero.health - selectedEnemy.counterAttackPoints
+                $("#heroHealth").html(selectedHero.health)
             }
         });
 
