@@ -14,38 +14,55 @@
 
     <!-- make divs and assing the images to them. use ids and add/delete the image? -->
 
-    <p id="instructions"></p>
+    <div class="jumbotron">
 
-    <img id="vader" class="character" data-character="darthVader" src="assets/images/DarthVader.jpeg" alt="Darth Vader">
-    <img id="solo" class="character" data-character="hanSolo" src="assets/images/HanSolo.jpg" alt="Han Solo">
-    <img id="wan" class="character" data-character="obiWan" src="assets/images/ObiWan.jpeg" alt="Obi Wan">
-    <img id="yoda" class="character" data-character="masterYoda" src="assets/images/MasterYoda.jpeg" alt="Master Yoda">
-
-    <div id="hero"> <!--id not yet used  -->
-
-        <p id="heroHealth"></p>
+        <h1 class="text-center" id="instructions"></h1>
 
     </div>
 
-    <button id="attack">Attack!</button>
+    <div class="container">
 
-    <div id="enemy"> <!--id not yet used  -->
 
-        <p id="enemyHealth"></p>
+        <img id="vader" class="character" data-character="darthVader" src="assets/images/DarthVader.jpeg" alt="Darth Vader">
+        <img id="solo" class="character" data-character="hanSolo" src="assets/images/HanSolo.jpg" alt="Han Solo">
+        <img id="wan" class="character" data-character="obiWan" src="assets/images/ObiWan.jpeg" alt="Obi Wan">
+        <img id="yoda" class="character" data-character="masterYoda" src="assets/images/MasterYoda.jpeg" alt="Master Yoda">
+
+        <div id="hero"> <!--id not yet used  -->
+
+            <h3>The Selected Hero Is</h3>
+            <h4 id="heroName">-</h4>
+            <h3>Your Health</h3>
+            <h4 id="heroHealth">-</h4>
+
+        </div>
+
+        <button id="attack">Attack!</button>
+
+        <div id="enemy"> <!--id not yet used  -->
+
+            <h3>The Selected Enemy Is</h3>
+            <h4 id="enemyName">-</h4>
+            <h3>Enemy Health</h3>
+            <h4 id="enemyHealth">-</h4>
+            
+        </div>
+
+        <div>
+            <h3>Defeated Enemies This Round</h3>
+            <h4 id="defeated">0</h4>
+
+            <h3>Wins</h3>
+            <h4 id="wins">0</h4>
+            
+            <h3>Losses</h3>
+            <h4 id="losses">0</h4>
+        </div>
 
     </div>
+
 
 <script type="text/javascript">
-//characters(the array).filter()
-// var darthVader = {name: darthVader, attackPoints: 8, counterAttackPoints: 6, health: 150, isUserChoice: false}
-    
-    //characters as object
-    // var characters = {
-    // "darthVader" : {name: "darthVader", attackPoints: 8, counterAttackPoints: 6, health: 150, isUserChoice: false},
-    // "hanSolo" : {name: "hanSolo", attackPoints: 6, counterAttackPoints: 8, health: 100, isUserChoice: false},
-    // "obiWan" : {name: "obiWan", attackPoints: 5, counterAttackPoints: 10, health: 200, isUserChoice: false},
-    // "masterYoda" : {name: "masterYoda", attackPoints: 10, counterAttackPoints: 5, health: 175, isUserChoice: false},
-    // }
 
     //characters as array
     var characters = [
@@ -68,13 +85,19 @@
 
     reset();
 
+    //those 3 go in reset()
     var heroChosen = false;
     var enemyChosen = false;
+    var defeatedEnemies = 0;
+
 
     var selectedHero;
     var selectedEnemy;
 
     var heroAttack = 0;
+
+    var win=0;
+    var loss=0;
 
     $(document).ready(function() {
 
@@ -97,6 +120,7 @@
                     if(characters[i].name === $(this).attr("data-character")){
                         characters[i].isHero = true;
                         selectedHero = characters[i];
+                        $("#heroName").html(selectedHero.name);
                         console.log(selectedHero);
                     }
                     console.log(characters[i].name + characters[i].isHero)
@@ -110,25 +134,42 @@
                     if(characters[i].name === $(this).attr("data-character")){
                         characters[i].isEnemy = true;
                         selectedEnemy = characters[i];
+                        $("#enemyName").html(selectedEnemy.name);
                         console.log(selectedEnemy);
                     }
                     console.log(characters[i].name + characters[i].isEnemy)
                 }
             enemyChosen = true;
             console.log(enemyChosen)
+            $("#instructions").html("Click on the Attack button to fight!")
             }
 
         });
 
         $("#attack").on("click", function(){
             if(heroChosen === true && enemyChosen === true){
-                
+
                 heroAttack = heroAttack + selectedHero.attackPoints
                 selectedEnemy.health = selectedEnemy.health - heroAttack
                 $("#enemyHealth").html(selectedEnemy.health)
 
                 selectedHero.health = selectedHero.health - selectedEnemy.counterAttackPoints
                 $("#heroHealth").html(selectedHero.health)
+            }
+            if(selectedHero.health < 1){
+                loss++
+                $("#losses").html(loss);
+                reset();
+            }
+            if(selectedEnemy.health < 1){
+                enemyChosen = false;
+                defeatedEnemies++
+                $("#defeated").html(defeatedEnemies);
+                if(defeatedEnemies === 3){
+                    win++;
+                    $("#wins").html(win);
+                    reset();
+                }
             }
         });
 
