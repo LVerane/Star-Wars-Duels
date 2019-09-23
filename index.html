@@ -12,11 +12,49 @@
 </head>
 <body>
 
-    
+    <!-- make divs and assing the images to them. use ids and add/delete the image? -->
+
+
+
+    <img id="vader" class="character" data-character="darthVader" src="assets/images/DarthVader.jpeg" alt="Darth Vader">
+    <img id="solo" class="character" data-character="hanSolo" src="assets/images/HanSolo.jpg" alt="Han Solo">
+    <img id="wan" class="character" data-character="obiWan" src="assets/images/ObiWan.jpeg" alt="Obi Wan">
+    <img id="yoda" class="character" data-character="masterYoda" src="assets/images/MasterYoda.jpeg" alt="Master Yoda">
+
+    <div id="hero">
+
+    </div>
+
+    <div id="enemies">
+
+    </div>
 
 <script type="text/javascript">
+//characters(the array).filter()
+// var darthVader = {name: darthVader, attackPoints: 8, counterAttackPoints: 6, health: 150, isUserChoice: false}
+    
+    //characters as object
+    // var characters = {
+    // "darthVader" : {name: "darthVader", attackPoints: 8, counterAttackPoints: 6, health: 150, isUserChoice: false},
+    // "hanSolo" : {name: "hanSolo", attackPoints: 6, counterAttackPoints: 8, health: 100, isUserChoice: false},
+    // "obiWan" : {name: "obiWan", attackPoints: 5, counterAttackPoints: 10, health: 200, isUserChoice: false},
+    // "masterYoda" : {name: "masterYoda", attackPoints: 10, counterAttackPoints: 5, health: 175, isUserChoice: false},
+    // }
+
+    //characters as array
+    var characters = [
+    char1 = {name: "darthVader", attackPoints: 8, counterAttackPoints: 6, health: 150, isUserChoice: false},
+    char2 = {name: "hanSolo", attackPoints: 6, counterAttackPoints: 8, health: 100, isUserChoice: false},
+    char3 = {name: "obiWan", attackPoints: 5, counterAttackPoints: 10, health: 200, isUserChoice: false},
+    char4 = {name: "masterYoda", attackPoints: 10, counterAttackPoints: 5, health: 175, isUserChoice: false},
+    ]
 
 
+    // characters[i].name
+
+    //switch statement
+
+    // var characters = {};
 
     function reset(){
 
@@ -26,7 +64,28 @@
 
     $(document).ready(function() {
 
+        // a way to choose. maybe do buttons instead?
+//        $(".character").on("click", function(){
+            // chosen = this;
+//           var chosenChar = $(this).attr("data-character")
+        //    charPosition = characters.indexOf(chosenChar);
+//           console.log(chosenChar);
+        //    console.log(charPosition);
+            // characters[chosenChar]
+//            characters.name[chosenChar]
+//        });
 
+        $(".character").on("click", function(){
+            for(i=0; i<characters.length; i++){
+                // console.log(characters[i])
+                if(characters[i].name === $(this).attr("data-character")){
+                    characters[i].isUserChoice = true;
+                }
+                console.log(characters[i].isUserChoice)
+            }
+
+
+        });
 
     });
 
