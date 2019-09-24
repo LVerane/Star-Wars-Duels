@@ -17,7 +17,7 @@ button{
 
 .main-container{
     margin: auto;
-    width: 80%;
+    width: 84%;
 }
 
 .images{
@@ -26,6 +26,6 @@ button{
     min-height: 210px;
 }
 
-.col{
-    width: 20%;
+.col-defeated{
+    max-width: 25%;
 }

@@ -6,15 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-
-    <!-- make divs and assing the images to them. use ids and add/delete the image? -->
 
     <div class="jumbotron">
 
@@ -23,8 +22,6 @@
     </div>
 
     <div class="main-container">
-
-        <!-- save as variable calling by id -->
 
         <div class="images" id="images">
             <img id="vader" class="character" data-character="Darth Vader" src="assets/images/DarthVader.jpeg"
@@ -68,7 +65,7 @@
                 <h4 id="losses">0</h4>
             </div>
 
-            <div class="col">
+            <div class="col col-defeated">
                 <h3>Enemies Defeated This Round</h3>
                 <h4 id="defeated"></h4>
                 <div class="images" id="defeatedImg"></div>
@@ -76,178 +73,7 @@
 
         </div>
 
-        <!-- <div class="row">
-
-            <div class="col">
-
-                <button id="attack">Attack!</button>
-                <button id="reset">Restart</button>
-
-            </div>
-
-            <div class="col">
-
-                <h3>Wins</h3>
-                <h4 id="wins">0</h4>
-
-                <h3>Losses</h3>
-                <h4 id="losses">0</h4>
-
-            </div>
-            
-            <div class="col">
-                <h3>Enemies Defeated This Round</h3>
-                <h4 id="defeated"></h4>
-                <div class="images" id="defeatedImg"></div>
-            </div>
-
-        </div> -->
-        
-        
     </div>
-
-
-    <script type="text/javascript">
-
-        //characters as array
-        var characters = [// I just added isDefeated = false, but I'm pulling it out of the array to compare stuff, so I don't think it will matter. Maybe just delete the array and use loose objects?
-            char1 = { name: "Darth Vader", attackPoints: 8, counterAttackPoints: 6, health: 150, isHero: false, isEnemy: false, hasFought: false },
-            char2 = { name: "Han Solo", attackPoints: 6, counterAttackPoints: 8, health: 100, isHero: false, isEnemy: false, hasFought: false },
-            char3 = { name: "Obi Wan", attackPoints: 5, counterAttackPoints: 10, health: 200, isHero: false, isEnemy: false, hasFought: false },
-            char4 = { name: "Master Yoda", attackPoints: 10, counterAttackPoints: 5, health: 175, isHero: false, isEnemy: false, hasFought: false },
-        ]
-
-        // charReset = {name: "-", attackPoints: 0, counterAttackPoints: 0, health: 0, isHero: false, isEnemy: false, hasFought: false}
-
-        function reset() {
-            var allChar = $(".character");
-            console.log(allChar);
-            $("#images").append(allChar);
-            heroChosen = false;
-            enemyChosen = false;
-            defeatedEnemies = [];
-            heroAttack = 0;
-            characters = [//reset on character attributes not working. Maybe do a reference array instead?
-                char1 = { name: "Darth Vader", attackPoints: 8, counterAttackPoints: 6, health: 150, isHero: false, isEnemy: false, hasFought: false },
-                char2 = { name: "Han Solo", attackPoints: 6, counterAttackPoints: 8, health: 100, isHero: false, isEnemy: false, hasFought: false },
-                char3 = { name: "Obi Wan", attackPoints: 5, counterAttackPoints: 10, health: 200, isHero: false, isEnemy: false, hasFought: false },
-                char4 = { name: "Master Yoda", attackPoints: 10, counterAttackPoints: 5, health: 175, isHero: false, isEnemy: false, hasFought: false },
-            ];//maybe isHero and isEnemy could become isChosen
-            $("#defeated").html(defeatedEnemies);
-            // $("#defeatedImg").html("");
-            $("#heroName").html("-");
-            $("#enemyName").html("-");
-            $("#enemyHealth").html("-");
-            $("#heroHealth").html("-");
-            $("#instructions").html("Click on an image to choose your hero!");
-
-        }
-
-        var heroChosen = false;
-        var enemyChosen = false;
-        var defeatedEnemies = [];
-        var heroAttack = 0;
-
-        var selectedHero;
-        var selectedEnemy;
-
-        var win = 0;
-        var loss = 0;
-
-        var heroImg;
-        var enemyImg;
-
-        $(document).ready(function () {
-
-            reset();
-            console.log(characters);
-
-            $(".character").on("click", function () {
-                if (heroChosen === false) {
-                    for (i = 0; i < characters.length; i++) {//why am I even doing this? I don't think I need a for loop, so neither would I need and array
-                        // console.log(characters[i])
-                        if (characters[i].name === $(this).attr("data-character")) {
-                            characters[i].isHero = true;
-                            selectedHero = characters[i];
-                            $("#heroName").html(selectedHero.name);
-                            console.log(selectedHero);
-                            console.log(characters[i].name + characters[i].isHero)
-                            // characters.splice(i, 1);
-                            console.log(characters);
-                            heroChosen = true;
-                            console.log(heroChosen)
-                            $("#instructions").html("Click on an image to choose your enemy!")
-                                                
-                            heroImg = $(this);
-                            console.log(heroImg);
-                            $("#hero").append(heroImg);
-                            $("#heroHealth").html(selectedHero.health)
-                        }
-                    }
-                } else {
-                    for (i = 0; i < characters.length; i++) {
-                        // console.log(characters[i])
-                        if (characters[i].name === $(this).attr("data-character") && characters[i].isHero === false && characters[i].isEnemy === false && enemyChosen === false) {
-                            characters[i].isEnemy = true;
-                            selectedEnemy = characters[i];
-                            $("#enemyName").html(selectedEnemy.name);
-                            console.log(selectedEnemy);
-                            console.log(characters[i].name + characters[i].isEnemy)
-                            // characters.splice(i, 1);
-                            enemyChosen = true;
-                            $("#instructions").html("Click on the Attack button to fight!")
-                            console.log(enemyChosen)
-
-                            enemyImg = $(this);
-                            $("#enemy").append(enemyImg);
-                            $("#enemyHealth").html(selectedEnemy.health)
-                        }
-                    }
-                }
-
-            });
-
-            $("#attack").on("click", function () {
-                if (heroChosen === true && enemyChosen === true && selectedEnemy.health > 0) {
-
-                    heroAttack = heroAttack + selectedHero.attackPoints
-                    selectedEnemy.health = selectedEnemy.health - heroAttack
-                    $("#enemyHealth").html(selectedEnemy.health)
-
-                    selectedHero.health = selectedHero.health - selectedEnemy.counterAttackPoints
-                    $("#heroHealth").html(selectedHero.health)
-
-                    if (selectedHero.health < 1) {
-                        loss++
-                        $("#losses").html(loss);
-                        // reset();
-                    } else if (selectedEnemy.health < 1) {
-                        enemyChosen = false;
-                        defeatedEnemies.push(selectedEnemy.name + "<br>")
-                        // defeatedEnemies++
-                        $("#enemyHealth").html("-")
-                        $("#defeated").html(defeatedEnemies);
-                        $("#defeatedImg").append(enemyImg);
-                        $("#instructions").html("Click on an image to choose your enemy!")
-                        $("#enemyName").html("-");
-                        if (defeatedEnemies.length === 3) {
-                            win++;
-                            $("#wins").html(win);
-                            $("#instructions").html("Click on the Restart button to play a new game!")
-                            // reset();
-                        }
-                    }
-                    console.log(heroAttack);
-                }
-            });
-
-            $("#reset").on("click", function () {
-                reset();
-            });
-
-        });
-
-    </script>
 
 </body>
 
