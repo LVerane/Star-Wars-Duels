@@ -23,40 +23,64 @@
     <div class="container">
 
 
-        <img id="vader" class="character" data-character="darthVader" src="assets/images/DarthVader.jpeg" alt="Darth Vader">
-        <img id="solo" class="character" data-character="hanSolo" src="assets/images/HanSolo.jpg" alt="Han Solo">
-        <img id="wan" class="character" data-character="obiWan" src="assets/images/ObiWan.jpeg" alt="Obi Wan">
-        <img id="yoda" class="character" data-character="masterYoda" src="assets/images/MasterYoda.jpeg" alt="Master Yoda">
+        <img id="vader" class="character" data-character="Darth Vader" src="assets/images/DarthVader.jpeg" alt="Darth Vader">
+        <img id="solo" class="character" data-character="Han Solo" src="assets/images/HanSolo.jpg" alt="Han Solo">
+        <img id="wan" class="character" data-character="Obi Wan" src="assets/images/ObiWan.jpeg" alt="Obi Wan">
+        <img id="yoda" class="character" data-character="Master Yoda" src="assets/images/MasterYoda.jpeg" alt="Master Yoda">
 
-        <div id="hero"> <!--id not yet used  -->
+        <div class="row">
 
-            <h3>The Selected Hero Is</h3>
-            <h4 id="heroName">-</h4>
-            <h3>Your Health</h3>
-            <h4 id="heroHealth">-</h4>
+            <div class="col">
 
-        </div>
+                
+                <!-- <div id="hero"> id not yet used  -->
+                    
+                    <h3>The Selected Hero Is</h3>
+                    <h4 id="heroName">-</h4>
+                    <h3>Your Health</h3>
+                    <h4 id="heroHealth">-</h4>
+                    
+                <!-- </div> -->
+                
+            </div>
 
-        <button id="attack">Attack!</button>
+            <div class="col">
 
-        <div id="enemy"> <!--id not yet used  -->
-
-            <h3>The Selected Enemy Is</h3>
-            <h4 id="enemyName">-</h4>
-            <h3>Enemy Health</h3>
-            <h4 id="enemyHealth">-</h4>
+                <!-- <div id="enemy"> id not yet used  -->
+                    
+                    <h3>The Selected Enemy Is</h3>
+                    <h4 id="enemyName">-</h4>
+                    <h3>Enemy Health</h3>
+                    <h4 id="enemyHealth">-</h4>
+                    
+                <!-- </div> -->
+                
+            </div>
             
         </div>
 
-        <div>
-            <h3>Defeated Enemies This Round</h3>
-            <h4 id="defeated">0</h4>
+        <div class="row">
 
-            <h3>Wins</h3>
-            <h4 id="wins">0</h4>
+            <div class="col">
+                
+                <button id="attack">Attack!</button>
+                <button id="reset">Restart</button>
+                
+                <h3>Enemies Defeated This Round</h3>
+                <h4 id="defeated"></h4>
+                
+            </div>
+
+            <div class="col">
+                
+                <h3>Wins</h3>
+                <h4 id="wins">0</h4>
+                
+                <h3>Losses</h3>
+                <h4 id="losses">0</h4>
+                
+            </div>
             
-            <h3>Losses</h3>
-            <h4 id="losses">0</h4>
         </div>
 
     </div>
@@ -65,89 +89,88 @@
 <script type="text/javascript">
 
     //characters as array
-    var characters = [
-    char1 = {name: "darthVader", attackPoints: 8, counterAttackPoints: 6, health: 150, isHero: false, isEnemy: false },
-    char2 = {name: "hanSolo", attackPoints: 6, counterAttackPoints: 8, health: 100, isHero: false, isEnemy: false},
-    char3 = {name: "obiWan", attackPoints: 5, counterAttackPoints: 10, health: 200, isHero: false, isEnemy: false},
-    char4 = {name: "masterYoda", attackPoints: 10, counterAttackPoints: 5, health: 175, isHero: false, isEnemy: false},
+    var characters = [// I just added isDefeated = false, but I'm pulling it out of the array to compare stuff, so I don't think it will matter. Maybe just delete the array and use loose objects?
+    char1 = {name: "Darth Vader", attackPoints: 8, counterAttackPoints: 6, health: 150, isHero: false, isEnemy: false, hasFought: false},
+    char2 = {name: "Han Solo", attackPoints: 6, counterAttackPoints: 8, health: 100, isHero: false, isEnemy: false, hasFought: false},
+    char3 = {name: "Obi Wan", attackPoints: 5, counterAttackPoints: 10, health: 200, isHero: false, isEnemy: false, hasFought: false},
+    char4 = {name: "Master Yoda", attackPoints: 10, counterAttackPoints: 5, health: 175, isHero: false, isEnemy: false, hasFought: false},
     ]
 
-
-    // characters[i].name
-
-    //switch statement
-
-    // var characters = {};
+    // charReset = {name: "-", attackPoints: 0, counterAttackPoints: 0, health: 0, isHero: false, isEnemy: false, hasFought: false}
 
     function reset(){
-
+        heroChosen = false;
+        enemyChosen = false;
+        defeatedEnemies = [];
+        heroAttack = 0;
+        characters = [//reset on character attributes not working. Maybe do a reference array instead?
+            char1 = {name: "Darth Vader", attackPoints: 8, counterAttackPoints: 6, health: 150, isHero: false, isEnemy: false, hasFought: false},
+            char2 = {name: "Han Solo", attackPoints: 6, counterAttackPoints: 8, health: 100, isHero: false, isEnemy: false, hasFought: false},
+            char3 = {name: "Obi Wan", attackPoints: 5, counterAttackPoints: 10, health: 200, isHero: false, isEnemy: false, hasFought: false},
+            char4 = {name: "Master Yoda", attackPoints: 10, counterAttackPoints: 5, health: 175, isHero: false, isEnemy: false, hasFought: false},
+        ];
+        $("#defeated").html(defeatedEnemies);
+        $("#heroName").html("-");
+        $("#enemyName").html("-");
+        $("#enemyHealth").html("-");
+        $("#heroHealth").html("-");
+        $("#instructions").html("Click on an image to choose your hero!")
     }
 
-    reset();
-
-    //those 3 go in reset()
     var heroChosen = false;
     var enemyChosen = false;
-    var defeatedEnemies = 0;
-
+    var defeatedEnemies = [];
+    var heroAttack = 0;
 
     var selectedHero;
     var selectedEnemy;
-
-    var heroAttack = 0;
 
     var win=0;
     var loss=0;
 
     $(document).ready(function() {
 
-        $("#instructions").html("Click on an image to choose your hero!")
-        // a way to choose. maybe do buttons instead?
-//        $(".character").on("click", function(){
-            // chosen = this;
-//           var chosenChar = $(this).attr("data-character")
-        //    charPosition = characters.indexOf(chosenChar);
-//           console.log(chosenChar);
-        //    console.log(charPosition);
-            // characters[chosenChar]
-//            characters.name[chosenChar]
-//        });
+        reset();
+        console.log(characters);
 
         $(".character").on("click", function(){
             if(heroChosen === false){
-                for(i=0; i<characters.length; i++){
+                for(i=0; i<characters.length; i++){//why am I even doing this? I don't think I need a for loop, so neither would I need and array
                     // console.log(characters[i])
                     if(characters[i].name === $(this).attr("data-character")){
                         characters[i].isHero = true;
                         selectedHero = characters[i];
                         $("#heroName").html(selectedHero.name);
                         console.log(selectedHero);
+                        console.log(characters[i].name + characters[i].isHero)
+                        // characters.splice(i, 1);
+                        console.log(characters);
+                        heroChosen = true;
+                        console.log(heroChosen)
+                        $("#instructions").html("Click on an image to choose your enemy!")
                     }
-                    console.log(characters[i].name + characters[i].isHero)
                 }
-            heroChosen = true;
-            console.log(heroChosen)
-            $("#instructions").html("Click on an image to choose your enemy!")
             }else{
                 for(i=0; i<characters.length; i++){
                     // console.log(characters[i])
-                    if(characters[i].name === $(this).attr("data-character")){
+                    if(characters[i].name === $(this).attr("data-character") && characters[i].isHero === false && characters[i].isEnemy === false && enemyChosen === false){
                         characters[i].isEnemy = true;
                         selectedEnemy = characters[i];
                         $("#enemyName").html(selectedEnemy.name);
                         console.log(selectedEnemy);
+                        console.log(characters[i].name + characters[i].isEnemy)
+                        // characters.splice(i, 1);
+                        enemyChosen = true;
+                        $("#instructions").html("Click on the Attack button to fight!")
+                        console.log(enemyChosen)
                     }
-                    console.log(characters[i].name + characters[i].isEnemy)
                 }
-            enemyChosen = true;
-            console.log(enemyChosen)
-            $("#instructions").html("Click on the Attack button to fight!")
             }
 
         });
 
         $("#attack").on("click", function(){
-            if(heroChosen === true && enemyChosen === true){
+            if(heroChosen === true && enemyChosen === true && selectedEnemy.health > 0){
 
                 heroAttack = heroAttack + selectedHero.attackPoints
                 selectedEnemy.health = selectedEnemy.health - heroAttack
@@ -155,22 +178,30 @@
 
                 selectedHero.health = selectedHero.health - selectedEnemy.counterAttackPoints
                 $("#heroHealth").html(selectedHero.health)
-            }
-            if(selectedHero.health < 1){
-                loss++
-                $("#losses").html(loss);
-                reset();
-            }
-            if(selectedEnemy.health < 1){
-                enemyChosen = false;
-                defeatedEnemies++
-                $("#defeated").html(defeatedEnemies);
-                if(defeatedEnemies === 3){
-                    win++;
-                    $("#wins").html(win);
-                    reset();
+
+                if(selectedHero.health < 1){
+                    loss++
+                    $("#losses").html(loss);
+                    // reset();
+                }else if(selectedEnemy.health < 1){
+                    enemyChosen = false;
+                    defeatedEnemies.push(selectedEnemy.name + "<br>")
+                    // defeatedEnemies++
+                    $("#defeated").html(defeatedEnemies);
+                    $("#instructions").html("Click on an image to choose your enemy!")
+                    if(defeatedEnemies.length === 3){
+                        win++;
+                        $("#wins").html(win);
+                        $("#instructions").html("Click on the Restart button to play a new game!")
+                        // reset();
+                    }
                 }
+                console.log(heroAttack);
             }
+        });
+
+        $("#reset").on("click", function(){
+            reset();
         });
 
     });
