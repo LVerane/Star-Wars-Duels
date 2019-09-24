@@ -1,5 +1,6 @@
 img {
     height: 200px;
+    margin: 5px;
 }
 
 h3, button {
@@ -8,4 +9,23 @@ h3, button {
 
 button{
     padding: 8px;
+}
+
+.jumbotron{
+    padding: 32px;
+}
+
+.main-container{
+    margin: auto;
+    width: 80%;
+}
+
+.images{
+    display: flex;
+    justify-content: space-evenly;
+    min-height: 210px;
+}
+
+.col{
+    width: 20%;
 }
