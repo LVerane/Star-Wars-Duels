@@ -24,8 +24,17 @@ button{
     display: flex;
     justify-content: space-evenly;
     min-height: 210px;
+    margin-bottom: 30px;
 }
 
-.col-defeated{
+/* .col-defeated{
     max-width: 25%;
+} */
+
+.box{
+    border-right: 3px solid black;
+}
+
+.box:last-child{
+    border-right: none;
 }

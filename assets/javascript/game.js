@@ -74,6 +74,7 @@ $(document).ready(function () {
                     enemyImg = $(this);
                     $("#enemy").append(enemyImg);
                     $("#enemyHealth").html(selectedEnemy.health)
+                    $("#attack").attr("hidden", false);
                 }
             }
         }
@@ -94,6 +95,7 @@ $(document).ready(function () {
                 loss++
                 $("#losses").html(loss);
                 $("#instructions").html("You lost! Click on the Restart button to play a new game!")
+                $("#attack").attr("hidden", true);
             } else if (selectedEnemy.health < 1) {
                 enemyChosen = false;
                 defeatedEnemies.push(selectedEnemy.name + "<br>")
@@ -106,6 +108,7 @@ $(document).ready(function () {
                     win++;
                     $("#wins").html(win);
                     $("#instructions").html("You won! Click on the Restart button to play a new game!")
+                    $("#attack").attr("hidden", true);
                 }
             }
         }

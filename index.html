@@ -34,7 +34,7 @@
 
         <div class="row">
 
-            <div class="col">
+            <div class="col box">
                 <h3>The Selected Hero Is</h3>
                 <h4 id="heroName">-</h4>
 
@@ -44,7 +44,7 @@
                 <h4 id="heroHealth">-</h4>
             </div>
 
-            <div class="col">
+            <div class="col box">
                 <h3>The Selected Enemy Is</h3>
                 <h4 id="enemyName">-</h4>
 
@@ -54,18 +54,19 @@
                 <h4 id="enemyHealth">-</h4>
             </div>
 
-            <div class="col">
-                <button id="attack">Attack!</button>
-                <button id="reset">Restart</button>
-
+            <div class="col box">
+                <button id="attack" hidden>Attack!</button>
+                
                 <h3>Wins</h3>
                 <h4 id="wins">0</h4>
-
+                
                 <h3>Losses</h3>
                 <h4 id="losses">0</h4>
+
+                <button id="reset">Restart</button>
             </div>
 
-            <div class="col col-defeated">
+            <div class="col col-defeated box">
                 <h3>Enemies Defeated This Round</h3>
                 <h4 id="defeated"></h4>
                 <div class="images" id="defeatedImg"></div>
